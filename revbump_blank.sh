@@ -1,18 +1,21 @@
 #!/bin/bash
 
+## remove next two lines once configured
+echo "error: script not configured"
+exit 1
+
 #local git repo and package subdir
-repo=~/oubliette-overlay/www-misc/zoneminder
+#  if using ~/SOMEPATH remove quotes
+repo="SOMEPATH"
 #package name
-pkg="zoneminder"
+pkg="SOMEPACKAGE"
 #upstrean repo
-pkg_git_base="https://api.github.com/repos/ZoneMinder/zoneminder"
+pkg_git_base="https://api.github.com/repos/PROJECT/REPO"
 #git submodules and their variable in the ebuild
 # Format EBUILD_VARIABLE:"full_git_sub_path"
 #  example: MY_CRUD_V:"${pkg_git_base}/contents/web/api/app/Plugin/Crud"
 pkg_sub_modules=(
-MY_CRUD_V:"${pkg_git_base}/contents/web/api/app/Plugin/Crud"
-MY_CAKEPHP_V:"${pkg_git_base}/contents/web/api/app/Plugin/CakePHP-Enum-Behavior"
-MY_RTSP_V:"${pkg_git_base}/contents/dep/RtspServer"
+
 )
 
 
