@@ -115,14 +115,14 @@ function push_to_overlay() {
 
 vars_github_api
 
-ebuild="${pkg}-${pkg_ver}.ebuild"
+ebuild="${repo}/${pkg}-${pkg_ver}.ebuild"
 #if there is a live build for this major.minor then base upon that
 # this caters for situations where upstream has different dependencies
 # between stable and dev branches
-if [ -e "${pkg}-${pkg_maj_min}.9999.ebuild" ]; then
-    from="${pkg}-${pkg_maj_min}.9999.ebuild"
+if [ -e "${repo}/${pkg}-${pkg_maj_min}.9999.ebuild" ]; then
+    from="${repo}/${pkg}-${pkg_maj_min}.9999.ebuild"
 else
-    from="${pkg}-9999.ebuild"
+    from="${repo}/${pkg}-9999.ebuild"
 fi
 
 push_to_overlay
