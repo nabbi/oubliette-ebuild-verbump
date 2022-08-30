@@ -2,7 +2,14 @@
 
 function err_msg() {
     echo -en "error: $*\n" 1>&2
-    logger --tag "ebuild-verbump" --priority user.error "$*"
+
+    #test for logger
+    if which logger >/dev/null 2>&1 ; then
+        logger --tag "ebuild-verbump" --priority user.error "$*" 1>&2
+    else
+        echo -en "error: this script requires logger https://github.com/util-linux/util-linux\n\t\t( sys-apps/util-linux on Gentoo )" 1>&2
+        exit 1
+    fi
 }
 
 #test for jq
@@ -20,12 +27,6 @@ if ! which git >/dev/null 2>&1 ; then
     err_msg "this script requires git https://www.git-scm.com/\n\t\t( dev-vcs/git on Gentoo )"
     exit 1
 fi
-#test for logger
-if ! which logger >/dev/null 2>&1 ; then
-    err_msg "this script requires logger https://github.com/util-linux/util-linux\n\t\t( sys-apps/util-linux on Gentoo )"
-    exit 1
-fi
-
 
 ## jq function to handle stdin, arg[n], and suppress stderr
 function jq_cmd() {
