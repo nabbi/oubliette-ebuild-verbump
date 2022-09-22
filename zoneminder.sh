@@ -30,6 +30,8 @@ else
     from="${repo}/${pkg}-9999.ebuild"
 fi
 
-push_to_overlay
+if [[ "$(push_to_overlay)" != "0" ]]; then
+    exit 1
+fi
 
 ### vim: ts=4 sts=4 sw=4 expandtab

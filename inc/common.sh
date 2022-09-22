@@ -135,7 +135,6 @@ function update_ebuild() {
         sed -i -E -e "s/^(${ebld_var})=\"[^\"]*\"/\1=\"${ebld_sha}\"/" "${ebuild}"
     done
 
-#    ebuild "${ebuild}" digest #depreciated
     ebuild "${ebuild}" manifest
 }
 
@@ -146,9 +145,11 @@ function push_to_overlay() {
 
     update_ebuild || return
 
-    git add .
-    git commit -asm "${pkg} auto-verbump"
-    git push
+    repoman full --include-dev --without-mask || { err_msg "repoman checks failed" ; return 1 ; }
+
+    git add ${ebuild} Manifest || { err_msg "git staging changes failed" ; return 1 ; }
+    git commit -asm "${pkg} auto-verbump ${ebuild}" || { err_msg "git commit failed" ; return 1 ; }
+    git push || { err_msg "git push failed" ; return 1 ; }
 }
 
 ### vim: ts=4 sts=4 sw=4 expandtab
