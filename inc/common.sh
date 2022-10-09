@@ -148,7 +148,7 @@ function push_to_overlay() {
     repoman full --include-dev --without-mask || { err_msg "repoman checks failed" ; return 1 ; }
 
     git add ${ebuild} Manifest || { err_msg "git staging changes failed" ; return 1 ; }
-    git commit -asm "${pkg} auto-verbump ${ebuild}" || { err_msg "git commit failed" ; return 1 ; }
+    git commit -asm "${pkg} auto-verbump $(basename ${ebuild})" || { err_msg "git commit failed" ; return 1 ; }
     git push || { err_msg "git push failed" ; return 1 ; }
 }
 
