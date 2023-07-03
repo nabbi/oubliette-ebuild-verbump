@@ -4,6 +4,7 @@
 repo=~/oubliette-overlay/www-misc/zoneminder
 #package name
 pkg="zoneminder"
+ver="9999-r1"
 #upstrean repo
 pkg_git_base="https://api.github.com/repos/ZoneMinder/zoneminder"
 #git submodules and their variable in the ebuild
@@ -24,10 +25,10 @@ ebuild="${repo}/${pkg}-${pkg_ver}.ebuild"
 #if there is a live build for this major.minor then base upon that
 # this caters for situations where upstream has different dependencies
 # between stable and dev branches
-if [ -e "${repo}/${pkg}-${pkg_maj_min}.9999.ebuild" ]; then
-    from="${repo}/${pkg}-${pkg_maj_min}.9999.ebuild"
+if [ -e "${repo}/${pkg}-${pkg_maj_min}.${ver}.ebuild" ]; then
+    from="${repo}/${pkg}-${pkg_maj_min}.${ver}.ebuild"
 else
-    from="${repo}/${pkg}-9999.ebuild"
+    from="${repo}/${pkg}-${ver}.ebuild"
 fi
 
 if [[ "$(push_to_overlay)" != "0" ]]; then
