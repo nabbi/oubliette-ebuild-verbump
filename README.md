@@ -5,6 +5,8 @@ Ahelper scripts for automatically version bumping Gentoo ebuild packages within 
 
 ## Docker
 
+[docker pull nabbi/oubliette-ebuild-verbump:latest](https://hub.docker.com/repository/docker/nabbi/oubliette-ebuild-verbump/general)
+
 ```shell
 docker buildx build . -t nabbi/oubliette-ebuild-verbump
 ```
