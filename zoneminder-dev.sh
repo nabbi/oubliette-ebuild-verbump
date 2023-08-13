@@ -2,8 +2,8 @@
 
 #local git repo and package subdir
 basedir="/opt"
-workdir="${basedir}/oubliette-overlay/www-misc/zoneminder"
-repo="git@github.com:nabbi/oubliette-overlay.git"
+workdir="${basedir}/oubliette-overlay-dev/www-misc/zoneminder"
+repo="git@github.com:nabbi/oubliette-overlay-dev.git"
 #package name
 pkg="zoneminder"
 ver="9999-r1"

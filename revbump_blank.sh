@@ -19,7 +19,7 @@ pkg_sub_modules=(
 )
 
 #import our common functions
-source $(dirname "$(readlink -f "$0")")/inc/common.sh
+source $(dirname "$(readlink -f "$0")")/inc-common.sh
 
 vars_github_api || { err_msg "could not get package variables" ; exit 1 ; }
 

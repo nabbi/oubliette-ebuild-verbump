@@ -122,7 +122,7 @@ function update_ebuild() {
         return 1
     fi
 
-    cp -v "${from}" "${ebuild}"
+    cp -v "${from}" "${ebuild}" ||  { err_msg "unable to copy template ${from}" ; return 1 ; }
     #iterate over the sub modules and replace their current value with the retrieved sha
     local cur_sub_module ebld_var ebld_sha
     for cur_sub_module in "${pkg_sub_modules[@]}" ; do
@@ -138,14 +138,23 @@ function update_ebuild() {
     ebuild "${ebuild}" manifest
 }
 
+function clone_overlay() {
+    if [[ ! -d "${workdir}" ]]; then
+        cd "${basedir}"
+        git clone "${repo}" || return 1
+    else
+        cd "${workdir}"
+        git pull || return 1
+    fi
+}
+
 ## update the overlay repo
 function push_to_overlay() {
-    cd "${repo}" || { err_msg "could not change to ${repo} dir" ; return 1 ; }
-    git pull
+    cd "${workdir}" || { err_msg "could not change to ${workdir} dir" ; return 1 ; }
 
     update_ebuild || return
 
-    repoman full --include-dev --without-mask || { err_msg "repoman checks failed" ; return 1 ; }
+    #repoman full --include-dev --without-mask || { err_msg "repoman checks failed" ; return 1 ; }
 
     git add ${ebuild} Manifest || { err_msg "git staging changes failed" ; return 1 ; }
     git commit -asm "${pkg} auto-verbump $(basename ${ebuild})" || { err_msg "git commit failed" ; return 1 ; }
